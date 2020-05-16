@@ -1,4 +1,4 @@
-function [xk, k] = lineLM_BFGS( f, x0, tol, maxiter )
+function [xk, k] = lineLM_BFGS( f, x0, maxiter )
 % Purpose: use limited memory updates to iapproximate the inverse of the 
 %          Hessian. (linesearch algorithm)
 %
@@ -11,10 +11,11 @@ function [xk, k] = lineLM_BFGS( f, x0, tol, maxiter )
     gk = apGrad(f, x0);
     gnew = 1;
     xk = x0;
+    tol=1e-5;
     while norm(gnew) > tol
         dk = -ev_Hg(SS, GG, gk);
         
-        [alpha, gnew] = linesearch( f, xk, dk, gk );
+        [alpha, gnew] = lineSearch( f, xk, dk, gk );
         
         s = alpha*dk;
         xk = xk + s;

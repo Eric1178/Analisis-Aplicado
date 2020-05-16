@@ -1,4 +1,4 @@
-function [xk, k] = lineBGFS( f, x0, tol, maxiter )
+function [xk, k] = lineBGFS( f, x0, maxiter )
 % Purpose: approximate a local min of f using the linesearch algorithm
 % and the (iBGFS) update formula (to avoid the solution of linear systems)
 %
@@ -13,10 +13,11 @@ function [xk, k] = lineBGFS( f, x0, tol, maxiter )
     gk = apGrad(f, x0);
     gnew = 1;
     xk = x0;
+    tol=1e-5;
     while norm(gnew) > tol
         dk = -H*gk;
         
-        [alpha, gnew] = linesearch( f, xk, dk, gk );
+        [alpha, gnew] = lineSearch( f, xk, dk, gk );
         
         s = alpha*dk;
         xk = xk + s;

@@ -19,7 +19,7 @@ while alphaN > 0 && alphaN < alphaMax
         alphaAux = zoom(alphaO, alphaN, f, xk, gk, dk);
         break
         elseif abs(PhiD(alphaN)) <= -c2*PhiD0
-        alphaAux = alphaNew;
+        alphaAux = alphaN;
         break
         elseif PhiD(alphaN) >= 0
             alphaAux = zoom(alphaN, alphaO, f, xk, gk, dk);
