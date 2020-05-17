@@ -14,7 +14,7 @@ if p==1
     end
 else
     for i=1:n
-        x(i)=0.5;
+        x(i)=2;
     end
 end
 end
