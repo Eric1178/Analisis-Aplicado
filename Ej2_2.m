@@ -5,9 +5,9 @@ format long;
 
 f=@extendedRosenbrock;
 maxiter=10000;
-
+m=3;
 %Necesitamos hacer Line search, Line search con memoria limitada y rcSR1
-%para n={2,8,32,128} y para las últimas 5 iteraciones, calcular xk 
+%para n ∈{2,8,32,128} y para las últimas 5 iteraciones, calcular xk 
 %,la norma del gradiente, f(xk), los errores entre el punto estacionario y la aproximación
 %y el tiempo que tardo el algoritmo.
 
@@ -17,7 +17,7 @@ p=1; %El parametro para que la funcion Generarpunto genere el punto correcto
 x0=Generarpunto(p,n);
 xmin=ones(n,1);
 [~, iter1] = rcSR1(f, x0,maxiter);
-[~, iter2] = lineLM_BFGS( f, x0, maxiter);
+[~, iter2] = lineLM_BFGS( f, x0, maxiter,m);
 [~, iter3] = lineBGFS( f, x0, maxiter );
 %fprintf('El método rcSR1 aplicado a la funcion Rosenbrock, tomo %d iteraciones \n',iter1)
 %fprintf('El método line search con memoria limitada aplicado a la funcion Rosenbrock, tomo %d iteraciones \n',iter2)
@@ -64,7 +64,7 @@ end
 j=1;
 for i=iter2-5:iter2
     tI = tic;
-        [x, ~] = lineLM_BFGS( f, x0, i);
+        [x, ~] = lineLM_BFGS( f, x0, i,m);
     tF = toc(tI);
     t2(j)=tF;
     der2(j)=norm(apGrad(f,x));
@@ -128,7 +128,7 @@ p=1; %El parametro para que la funcion Generarpunto genere el punto correcto
 x0=Generarpunto(p,n);
 xmin=ones(n,1);
 [~, iter1] = rcSR1(f, x0,maxiter);
-[~, iter2] = lineLM_BFGS( f, x0, maxiter);
+[~, iter2] = lineLM_BFGS( f, x0, maxiter,m);
 [~, iter3] = lineBGFS( f, x0, maxiter );
 %Tabla para ver iteraciones maximas de cada metodo para n=8
 fprintf('\t\t\t\t\t\t%s' ,'Función Rosenbrock')
@@ -171,7 +171,7 @@ end
 j=1;
 for i=iter2-5:iter2
     tI = tic;
-        [x, ~] = lineLM_BFGS( f, x0, i);
+        [x, ~] = lineLM_BFGS( f, x0, i,m);
     tF = toc(tI);
     t2(j)=tF;
     der2(j)=norm(apGrad(f,x));
@@ -235,7 +235,7 @@ p=1; %El parametro para que la funcion Generarpunto genere el punto correcto
 x0=Generarpunto(p,n);
 xmin=ones(n,1);
 [~, iter1] = rcSR1(f, x0,maxiter);
-[~, iter2] = lineLM_BFGS( f, x0, maxiter);
+[~, iter2] = lineLM_BFGS( f, x0, maxiter,m);
 [~, iter3] = lineBGFS( f, x0, maxiter );
 %Tabla para ver iteraciones maximas de cada metodo para n=32
 fprintf('\t\t\t\t\t\t%s' ,'Función Rosenbrock')
@@ -277,7 +277,7 @@ end
 j=1;
 for i=iter2-5:iter2
     tI = tic;
-        [x, ~] = lineLM_BFGS( f, x0, i);
+        [x, ~] = lineLM_BFGS( f, x0, i,m);
     tF = toc(tI);
     t2(j)=tF;
     der2(j)=norm(apGrad(f,x));
@@ -341,7 +341,7 @@ p=1; %El parametro para que la funcion Generarpunto genere el punto correcto
 x0=Generarpunto(p,n);
 xmin=ones(n,1);
 [~, iter1] = rcSR1(f, x0,maxiter);
-[~, iter2] = lineLM_BFGS( f, x0, maxiter);
+[~, iter2] = lineLM_BFGS( f, x0, maxiter,m);
 [~, iter3] = lineBGFS( f, x0, maxiter );
 %Tabla para ver iteraciones maximas de cada metodo para n=128
 fprintf('\n\t%s \t\t\t%s \t\t%s\n' ,'Método', 'Iteraciones','Tamaño de n');
@@ -382,7 +382,7 @@ end
 j=1;
 for i=iter2-5:iter2
     tI = tic;
-        [x, ~] = lineLM_BFGS( f, x0, i);
+        [x, ~] = lineLM_BFGS( f, x0, i,m);
     tF = toc(tI);
     t2(j)=tF;
     der2(j)=norm(apGrad(f,x));
