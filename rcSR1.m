@@ -17,7 +17,7 @@ function [xk, iter] = rcSR1(f, x0,maxiter)
     xk = x0;
     g = apGrad(f, xk);
     H = speye(n);
-    B = H;
+    B = apHess(f,xk);
     tol=1e-5;
     
     while norm(g, 'inf') > tol
